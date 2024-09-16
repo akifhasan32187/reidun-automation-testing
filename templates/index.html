@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Flask App</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Select an Option to View Automated Test Results</h1>
+        <div class="buttons">
+            <a href="{{ url_for('run', script_name='login') }}" class="button">Company User Login</a>
+            <a href="{{ url_for('run', script_name='brand') }}" class="button">Brand Settings</a>
+            <a href="{{ url_for('run', script_name='system') }}" class="button"> System Settings</a>
+            <a href="{{ url_for('run', script_name='company') }}" class="button">Company Settings</a>
+            <a href="{{ url_for('run', script_name='bank') }}" class="button">Bankand & Invoice</a>
+        </div>
+    </div>
+</body>
+</html>
