@@ -11,10 +11,10 @@ driver.maximize_window()
 
 # Open the website
 driver.get("https://test-reidun.rebingtest.com/login")
-time.sleep(3)
+time.sleep(1)
 
 # Log file setup
-log_file_path = "C:\\Python_Selenium\\PythonSelenium\\PythonSeleniumProject1\\LearningSelenium\\CompanySettingsResult.txt"
+log_file_path = r"C:\\Users\\akifh\Desktop\\Flask App\\my_flask_app\\CompanySettingsResult.txt"
 log_file = open(log_file_path, "w")
 
 def log_result(result_message):
@@ -52,11 +52,11 @@ def verify_field(xpath, expected_value, validation_func=None, success_message=No
     actual_value = field.get_attribute('value') or field.text  # Use field.text for non-input elements
     if validation_func:
         if validation_func(actual_value):
-            log_result(f"PASSED:: Value '{actual_value}' is valid. {success_message if success_message else 'Value is valid and saved successfully.'}")
+            log_result(f'<strong class="text-success">PASSED::</strong> Value "{actual_value}" is valid. {success_message if success_message else "Value is valid and saved successfully."}')
         else:
-            log_result(f"FAILED:: Value '{actual_value}' is invalid. {success_message if success_message else 'Value not valid.'} Reason: Expected value '{expected_value}'.")
+            log_result(f'<strong class="text-danger">FAILED::</strong> Value "{actual_value}" is invalid. <strong class="text-danger">Reason::</strong>{success_message if success_message else "Value not valid."}')
     else:
-        log_result(f"PASSED:: {success_message if success_message else 'Field value displayed successfully.'}")
+        log_result(f'<strong class="text-success">PASSED::</strong> {success_message if success_message else "Field value displayed successfully."}')
 
 
 # Initialize WebDriverWait
@@ -65,118 +65,118 @@ wait = WebDriverWait(driver, 10)
 # Login
 email_field = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="email"]')))
 email_field.send_keys('rebingtest777@yopmail.com')
-time.sleep(2)
+time.sleep(1)
 
 password_field = driver.find_element(By.XPATH, '//*[@id="password"]')
 password_field.send_keys('Rebing@001122')
-time.sleep(2)
+time.sleep(1)
 
 login_button = driver.find_element(By.XPATH, '//*[@id="login_button"]')
 login_button.click()
-time.sleep(2)
+time.sleep(1)
 
 # Navigate to Company Settings
 settings_menu = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/nav/div[1]/div/div[1]/div[2]/div/div/div/ul/li[11]/a/span[2]')))
 settings_menu.click()
-time.sleep(2)
+time.sleep(1)
 
 company_settings_link = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="useradd-sidenav"]/a[3]')))
 company_settings_link.click()
-time.sleep(2)
+time.sleep(1)
 
 # Company Name
 company_name_field = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="useradd-3"]/form/div/div[1]/div[1]/input')))
 company_name_field.send_keys('Bata')
-time.sleep(2)
+time.sleep(1)
 verify_field('//*[@id="useradd-3"]/form/div/div[1]/div[1]/input', 'Bata', validate_alphabet, 'Company Name should only accept alphabetic characters.')
 
 # Address
 address_field = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="company_address"]')))
 address_field.send_keys('Dhanmondi/Area')
-time.sleep(2)
+time.sleep(1)
 verify_field('//*[@id="company_address"]', 'Dhanmondi/Area', validate_alphanumeric, 'Address should only accept alphanumeric characters, /, and -.')
 
 # City
 city_field = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="company_city"]')))
 city_field.send_keys('Dhaka')
-time.sleep(2)
+time.sleep(1)
 verify_field('//*[@id="company_city"]', 'Dhaka', validate_alphanumeric, 'City should only accept alphanumeric characters, /, and -.')
 
 # State
 state_field = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="company_state"]')))
 state_field.send_keys('California@Vegas')
-time.sleep(2)
+time.sleep(1)
 verify_field('//*[@id="company_state"]', 'California@Vegas', validate_alphanumeric, 'State should only accept alphanumeric characters, /, and -.')
 
 # Zip/Post Code
 zipcode_field = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="company_zipcode"]')))
 zipcode_field.send_keys('1225')
-time.sleep(2)
+time.sleep(1)
 verify_field('//*[@id="company_zipcode"]', '1225', validate_numeric, 'Zip/Post Code should only accept numeric values.')
 
 # Post Office
 post_office_field = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="company_post_office"]')))
 post_office_field.send_keys('Mirpur-14')
-time.sleep(2)
+time.sleep(1)
 verify_field('//*[@id="company_post_office"]', 'Mirpur-14', validate_alphanumeric, 'Post Office should only accept alphanumeric characters, /, and -.')
 
 # Country
 country_field = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="company_country"]')))
 country_field.send_keys('Bangladesh')
-time.sleep(2)
+time.sleep(1)
 verify_field('//*[@id="company_country"]', 'Bangladesh', validate_alphabet, 'Country should only accept alphabetic characters.')
 
 # Telephone
 telephone_field = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="company_telephone"]')))
 telephone_field.send_keys('+01741495590')
-time.sleep(2)
+time.sleep(1)
 verify_field('//*[@id="company_telephone"]', '+01741495590', validate_telephone, 'Telephone should only accept numeric values with a leading +.')
 
 # Email
 email_field = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="company_email"]')))
 email_field.send_keys('akiff328700@gmail.com')
-time.sleep(2)
+time.sleep(1)
 verify_field('//*[@id="company_email"]', 'akiff328700@gmail.com', validate_email, 'Email should be in valid format.')
 
 # Web
 web_field = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="web"]')))
 web_field.send_keys('https://www.youtube.com/')
-time.sleep(2)
+time.sleep(1)
 verify_field('//*[@id="web"]', 'https://www.youtube.com/', validate_url, 'Web URL should be valid.')
 
 # Organization number
 organization_number_field = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="registration_number"]')))
 organization_number_field.send_keys('1111')
-time.sleep(2)
+time.sleep(1)
 verify_field('//*[@id="registration_number"]', '1111', validate_numeric, 'Organization number should only accept numeric values.')
 
 # Vat Number
 vat_number_field = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="vat_number"]')))
 vat_number_field.send_keys('201')
-time.sleep(2)
+time.sleep(1)
 verify_field('//*[@id="vat_number"]', '201', validate_numeric, 'Vat Number should only accept numeric values.')
 
 # GST Number
 gst_number_field = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="gst_number"]')))
 gst_number_field.send_keys('1234500')
-time.sleep(2)
+time.sleep(1)
 verify_field('//*[@id="gst_number"]', '1234500', validate_numeric, 'GST Number should only accept numeric values.')
 
 # Form of Organization
 form_of_organization_field = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="form_of_organization"]')))
 form_of_organization_field.click()
-time.sleep(2)
+time.sleep(1)
 
 # Select the 'Test' option from the dropdown
 form_option = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="form_of_organization"]/option[1]')))
 form_option.click()
-time.sleep(2)
+time.sleep(1)
 verify_field('//*[@id="form_of_organization"]', 'Test', None, "Clicked Option 'Test'. Form of Organization option selected successfully.")
 
 # Foundation Date
 foundation_date_field = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="datepicker"]')))
 foundation_date_field.send_keys('10/15/2024')
-time.sleep(3)
+time.sleep(2)
 verify_field('//*[@id="datepicker"]', '10/15/2024', None, "Clicked Option '10/15/2024'. Foundation Date value selected successfully.")
 # Vat period
 vat_period_field = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="vat_period"]')))
@@ -187,13 +187,13 @@ verify_field('//*[@id="vat_period"]', '12', validate_numeric, 'Vat period should
 # Click Save Changes button
 save_changes_button = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="useradd-3"]/form/div/div[2]/div/input')))
 save_changes_button.click()
-time.sleep(3)
+time.sleep(1)
 
 # Click on Dropdown and Logout
 dropdown_xpath = '/html/body/header/div/div[1]/ul/li[2]/a'
 dropdown = driver.find_element(By.XPATH, dropdown_xpath)
 dropdown.click()
-print("Clicked on dropdown.")
+print('<strong class="text-success">PASSED::</strong>Clicked on dropdown.')
 
 time.sleep(2)
 
@@ -201,7 +201,7 @@ time.sleep(2)
 logout_xpath = '/html/body/header/div/div[1]/ul/li[2]/div/a[2]'
 logout = driver.find_element(By.XPATH, logout_xpath)
 logout.click()
-print("Logged out.")
+print('<strong class="text-success">PASSED::</strong>Logged out.')
 
 # Close log file and browser
 log_file.close()

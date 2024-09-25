@@ -1,35 +1,47 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, url_for, redirect, request
 import subprocess
 
 app = Flask(__name__)
 
-# Function to execute Python scripts
-def run_script(script_name):
-    try:
-        result = subprocess.run(['python', script_name], capture_output=True, text=True)
-        return result.stdout if result.returncode == 0 else f"Error: {result.stderr}"
-    except Exception as e:
-        return str(e)
+# Mapping of script names to their file paths
+scripts = {
+    'CompanyUserLogin': 'CompanyUserLogin.py',
+    'BrandSettings': 'BrandSettings.py',
+    'SystemSettings': 'SystemSettings.py',
+    'CompanySettings': 'CompanySettings.py',
+    'BankInvoice': 'BankandInvoice.py',  # Renamed to match request
+    'Language': 'LanguageCheck.py'
+}
 
+# Home route to display buttons
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/run/<script_name>')
-def run(script_name):
-    script_mapping = {
-        'login': 'CompanyUserLogin.py',
-        'brand': 'BrandSettings.py',
-        'system': 'SystemSettings.py',
-        'company': 'CompanySettings.py',
-        'bank': 'BankandInvoice.py'
-    }
-    script_to_run = script_mapping.get(script_name)
-    if script_to_run:
-        output = run_script(script_to_run)
-        return render_template('result.html', output=output)
+# Route to run each script and display results
+@app.route('/run_script/<script_name>')
+def run_script(script_name):
+    # Check if script_name exists in the dictionary
+    if script_name in scripts:
+        script_path = scripts[script_name]
+
+        try:
+            # Run the Python script using subprocess and capture output
+            result = subprocess.run(['python', script_path], capture_output=True, text=True)
+            output = result.stdout + result.stderr  # Combine stdout and stderr
+
+            return render_template('result.html', script_name=script_name, output=output)
+        
+        except Exception as e:
+            return f"An error occurred while running {script_name}: {str(e)}"
+    
     else:
-        return "Invalid Script", 404
+        return f"Script {script_name} not found."
+
+# Error handler for any 404 (page not found) error
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 if __name__ == '__main__':
     app.run(debug=True)

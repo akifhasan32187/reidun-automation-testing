@@ -1,1 +1,0 @@
-# selenium-test-resul-takif321870

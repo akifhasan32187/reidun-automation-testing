@@ -3,19 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Flask App</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Automating UI Testing - Professional Site</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Select an Option to View Automated Test Results</h1>
-        <div class="buttons">
-            <a href="{{ url_for('run', script_name='login') }}" class="button">Company User Login</a>
-            <a href="{{ url_for('run', script_name='brand') }}" class="button">Brand Settings</a>
-            <a href="{{ url_for('run', script_name='system') }}" class="button"> System Settings</a>
-            <a href="{{ url_for('run', script_name='company') }}" class="button">Company Settings</a>
-            <a href="{{ url_for('run', script_name='bank') }}" class="button">Bankand & Invoice</a>
+    <header>
+        <h1>Automating UI Testing Using Python and Selenium</h1>
+        <p>Automate UI testing for <a href="https://test-reidun.rebingtest.com" target="_blank" style="color: #fff;">Visit the site</a>. Explore our comprehensive testing automation scripts.</p>
+    </header>
+    <section class="test-case-section"> 
+        <h2>Explore Test Automation Scripts</h2>
+        <div class="button-grid">
+            <!-- Test Case 1 -->
+            <div class="test-case">
+                <h3>Login Automation</h3>
+                <p>Automates the login process using Selenium WebDriver, validating credentials and verifying authentication.</p>
+                <a href="{{ url_for('run_script', script_name='CompanyUserLogin') }}" class="btn">Run Login</a>
+            </div>
+            <!-- Test Case 2 -->
+            <div class="test-case">
+                <h3>Brand Settings Automation</h3>
+                <p>Automate theme changes, brand settings, and preferences. Ensures accurate application and saves changes.</p>
+                <a href="{{ url_for('run_script', script_name='BrandSettings') }}" class="btn">Run Brand Settings</a>
+            </div>
+            <!-- Test Case 3 -->
+            <div class="test-case">
+                <h3>System Settings Automation</h3>
+                <p>Test system settings like dark mode toggles, layout changes, and preference saving using Selenium WebDriver.</p>
+                <a href="{{ url_for('run_script', script_name='SystemSettings') }}" class="btn">Run System Settings</a>
+            </div>
+            <!-- Test Case 4 -->
+            <div class="test-case">
+                <h3>Company Settings Automation</h3>
+                <p>Validate company title inputs and settings. Ensure proper handling of valid and invalid text inputs.</p>
+                <a href="{{ url_for('run_script', script_name='CompanySettings') }}" class="btn">Run Company Settings</a>
+            </div>
+            <!-- Test Case 5 -->
+            <div class="test-case">
+                <h3>Bank & Invoice Automation</h3>
+                <p>Simulate bank transactions and invoice generation to validate payment processing using automated scripts.</p>
+                <a href="{{ url_for('run_script', script_name='BankInvoice') }}" class="btn">Run Bank & Invoice</a>
+            </div>
+            <!-- Test Case 6 -->
+            <div class="test-case">
+                <h3>Spell Automation</h3>
+                <p>Automate spell-checking of text fields, ensuring accurate user input validation with Selenium WebDriver.</p>
+                <a href="{{ url_for('run_script', script_name='Language') }}" class="btn"> Language Check </a>
+            </div>
         </div>
-    </div>
+    </section>
+    <footer class="footer">
+        <p>© 2024 UI Test Automation | Ashraful Hasan | Powered by Flask and Selenium</p>
+        <p><a href="https://test-reidun.rebingtest.com" target="_blank">Visit the Test Site</a></p>
+    </footer>
 </body>
 </html>

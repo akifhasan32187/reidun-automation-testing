@@ -3,16 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Result</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>{{ script_name }} - Test Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Script Output</h1>
-        <div class="output">
-            <pre>{{ output }}</pre>
+    <header>
+        <h1>{{ script_name }} - Test Result</h1>
+    </header>
+    <section class="test-result-section"> 
+        <div class="test-result-output-section">
+            <pre class="output">{{ output | safe }}</pre>
         </div>
-        <a href="/" class="button">Go Back</a>
-    </div>
+        <a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+    </section>
+    <footer class="footer">
+        <p>© 2024 UI Test Automation | Ashraful Hasan | Powered by Flask and Selenium</p>
+    </footer>
 </body>
-</html>
+</html> 

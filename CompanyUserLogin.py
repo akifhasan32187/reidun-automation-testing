@@ -38,7 +38,7 @@ driver.maximize_window()  # Maximize the browser window
 driver.get("https://test-reidun.rebingtest.com/login")
 
 # Define path for the TestResult.txt file
-test_result_path = r'C:\Python_Selenium\PythonSelenium\PythonSeleniumProject1\LearningSelenium\TestResult.txt'
+test_result_path = r'C:\\Users\\akifh\Desktop\\Flask App\\my_flask_app\\CompanyUserTestResult.txt'
 
 # Define the tester's name and test date
 tester_name = "Ashraful Hasan"
@@ -69,12 +69,13 @@ def login(email, password):
 
         login_button = driver.find_element(By.ID, 'login_button')
         actions.move_to_element(login_button).click().perform()
-        time.sleep(5)
-        message = f"Logged in successfully with email: {email}"
+        time.sleep(2)
+        message = f'<strong class="text-success">PASSED::</strong>Logged in successfully with email: {email}'
+        #message = f'<strong class="text-success">PASSED</strong> : : Logged in successfully with email: {email}'
         print(message)
         log_to_file(message)
     except Exception as e:
-        message = f"Error during login: {e}"
+        message = f'<strong class="text-danger">FAILED::</strong>Error during login: {e}'
         print(message)
         log_to_file(message)
 
@@ -87,13 +88,13 @@ def change_name_email_avatar(name, email, avatar_path):
             EC.element_to_be_clickable((By.XPATH, '/html/body/header/div/div[1]/ul/li[2]/a'))
         )
         actions.move_to_element(dropdown).click().perform()
-        time.sleep(2)
+        time.sleep(1)
 
         my_profile_option = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, '/html/body/header/div/div[1]/ul/li[2]/div/a[1]'))
         )
         actions.move_to_element(my_profile_option).click().perform()
-        time.sleep(2)
+        time.sleep(1)
 
         name_input = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.XPATH, '//*[@id="name"]'))
@@ -108,20 +109,20 @@ def change_name_email_avatar(name, email, avatar_path):
         # Upload the avatar image
         choose_file_button = driver.find_element(By.XPATH, '//*[@id="avatar"]')
         actions.move_to_element(choose_file_button).perform()
-        time.sleep(2)
+        time.sleep(1)
         choose_file_button.send_keys(avatar_path)
-        time.sleep(2)  # Pause to observe the file path being set
+        time.sleep(1)  # Pause to observe the file path being set
 
         # Save changes
         save_button = driver.find_element(By.XPATH, '//*[@id="personal_info"]/div[2]/form/div/div[4]/input')
         actions.move_to_element(save_button).click().perform()
-        time.sleep(3)  # Observe the result after clicking save
+        time.sleep(1)  # Observe the result after clicking save
 
-        message = f"Profile updated to Name: {name}, Email: {email}"
+        message = f'<strong class="text-success">PASSED::</strong>Profile updated to Name: {name}, Email: {email}'
         print(message)
         log_to_file(message)
     except Exception as e:
-        message = f"Error during name/email/avatar update: {e}"
+        message = f'<strong class="text-danger">FAILED::</strong>Error during name/email/avatar update: {e}'
         print(message)
         log_to_file(message)
 
@@ -147,13 +148,13 @@ def change_password(old_password, new_password):
         # Click Save Changes after entering the new password
         save_button = driver.find_element(By.XPATH, '//*[@id="change_password"]/div[2]/form/div/div[4]/input')
         actions.move_to_element(save_button).click().perform()
-        time.sleep(5)  # Increased wait time to ensure save action completes
+        time.sleep(1)  # Increased wait time to ensure save action completes
 
-        message = f"Password was successfully updated to: {new_password}"
+        message = f'<strong class="text-success">PASSED::</strong>Password was successfully updated to: {new_password}'
         print(message)
         log_to_file(message)
     except Exception as e:
-        message = f"Error during password update: {e}"
+        message = f'<strong class="text-danger">FAILED::</strong>Error during password update: {e}'
         print(message)
         log_to_file(message)
 
@@ -166,18 +167,18 @@ def logout():
             EC.element_to_be_clickable((By.XPATH, '/html/body/header/div/div[1]/ul/li[2]/a'))
         )
         actions.move_to_element(dropdown).click().perform()
-        time.sleep(2)
+        time.sleep(1)
 
         logout_option = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, '/html/body/header/div/div[1]/ul/li[2]/div/a[2]'))
         )
         actions.move_to_element(logout_option).click().perform()
-        time.sleep(5)
-        message = "Successfully logged out."
+        time.sleep(1)
+        message = '<strong class="text-success">PASSED::</strong>Successfully logged out.'
         print(message)
         log_to_file(message)
     except Exception as e:
-        message = f"Error during logout: {e}"
+        message = f'<strong class="text-danger">FAILED::</strong>Error during logout: {e}'
         print(message)
         log_to_file(message)
 
@@ -204,16 +205,16 @@ for i in range(5):
 
     # Change name, email, and avatar
     change_name_email_avatar(name, email, avatar_path)
-    time.sleep(3)
+    time.sleep(1)
 
     # Change password
     change_password(original_password if i == 0 else password_combinations[i-1], password)
-    time.sleep(3)
+    time.sleep(1)
 
     # Save changes after changing password
     save_button = driver.find_element(By.XPATH, '//*[@id="personal_info"]/div[2]/form/div/div[4]/input')
     save_button.click()
-    time.sleep(3)
+    time.sleep(1)
 
     # Logout after each update
     logout()
@@ -224,15 +225,15 @@ for i in range(5):
 
 # Revert to original name, email, and password
 change_name_email_avatar(original_name, original_email, avatar_path)
-time.sleep(3)
+time.sleep(2)
 
 change_password(password_combinations[-1], original_password)
-time.sleep(3)
+time.sleep(1)
 
 # Save changes after reverting password
 save_button = driver.find_element(By.XPATH, '//*[@id="personal_info"]/div[2]/form/div/div[4]/input')
 save_button.click()
-time.sleep(3)
+time.sleep(1)
 
 # Logout
 logout()

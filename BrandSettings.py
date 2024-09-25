@@ -14,7 +14,7 @@ driver.maximize_window()  # Maximize the browser window
 driver.get("https://test-reidun.rebingtest.com/login")
 
 # Logging result file setup
-test_result_path = r"C:\Python_Selenium\PythonSelenium\PythonSeleniumProject1\LearningSelenium\TestResult.txt"
+test_result_path = r"C:\\Users\\akifh\Desktop\\Flask App\\my_flask_app\\BrndSettingsTestResult.txt"
 tester_name = "Ashraful Hasan"
 test_date = datetime.now().strftime("%dth %B, %Y")
 result = f"Tester's Name: {tester_name}\nTest Date: {test_date}\n\n"
@@ -45,20 +45,20 @@ def login():
         email_input = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'email')))
         email_input.clear()
         email_input.send_keys("rebingtest777@yopmail.com")
-        time.sleep(2)
+        time.sleep(1)
 
         password_input = driver.find_element(By.ID, 'password')
         password_input.clear()
         password_input.send_keys("Rebing@001122")
-        time.sleep(2)
+        time.sleep(1)
 
         login_button = driver.find_element(By.ID, 'login_button')
         login_button.click()
-        time.sleep(2)
+        time.sleep(1)
 
-        log_result("Entered email, password, and clicked login button. Login successful.")
+        log_result('<strong class="text-success">PASSED::</strong>Entered email, password, and clicked login button. Login successful.')
     except Exception as e:
-        log_result(f"Login failed - Error: {str(e)}")
+        log_result(f'<strong class="text-danger">FAILED::</strong>Login failed - Error: {str(e)}')
 
 # Function to update Title Text
 # Function to update Title Text with validation and logging
@@ -79,21 +79,21 @@ def update_title_text():
             # Clear the field and input the text
             title_input.clear()
             title_input.send_keys(text)
-            time.sleep(2)
+            time.sleep(1)
 
             # Click the Save Changes button
             save_button = wait_for_clickable('//*[@id="useradd-1"]/form/div[2]/div/div[3]/div/input')
             save_button.click()
-            time.sleep(2)
+            time.sleep(1)
 
             # Validate if the input contains only alphabets
             if text.isalpha():
-                log_result(f"PASSED: Entered title text: '{text}'. Save Changes button clicked. Title text updated and saved successfully.")
+                log_result(f'<strong class="text-success">PASSED::</strong> Entered title text: "{text}". Save Changes button clicked. Title text updated and saved successfully.')
             else:
                 reason = "Title should have only alphabet."
-                log_result(f"FAILED: Entered title text: '{text}'. Save Changes button clicked. Reason:: {reason}")
+                log_result(f'<strong class="text-danger">FAILED::</strong> Entered title text: "{text}". Save Changes button clicked. <strong class="text-danger">Reason::</strong> {reason}')
         except Exception as e:
-            log_result(f"Failed to update title text with '{text}' - Error: {str(e)}")
+            log_result(f'<strong class="text-danger">FAILED::</strong>Failed to update title text with "{text}" - Error: {str(e)}')
 
 
 # Function to toggle Dark Layout checkbox
@@ -108,15 +108,15 @@ def toggle_dark_layout():
             time.sleep(1)  # Allow time for scrolling
 
             dark_layout_checkbox.click()
-            time.sleep(2)
+            time.sleep(1)
 
             save_button = wait_for_clickable('//*[@id="useradd-1"]/form/div[2]/div/div[3]/div/input')
             save_button.click()
-            time.sleep(2)
+            time.sleep(1)
 
-        log_result("Dark Layout checkbox clicked twice and Save Changes button clicked after each toggle.")
+        log_result('<strong class="text-success">PASSED::</strong>Dark Layout checkbox clicked twice and Save Changes button clicked after each toggle.')
     except Exception as e:
-        log_result(f"Failed to toggle Dark Layout - Error: {str(e)}")
+        log_result(f'<strong class="text-danger">FAILED::</strong>Failed to toggle Dark Layout - Error: {str(e)}')
 
 
 # Function to change theme colors
@@ -127,15 +127,15 @@ def change_theme_color(theme_xpath, theme_number):
         time.sleep(1)  # Allow time for scrolling
 
         theme.click()
-        time.sleep(2)
+        time.sleep(1)
 
         save_button = wait_for_clickable('//*[@id="useradd-1"]/form/div[2]/div/div[3]/div/input')
         save_button.click()
-        time.sleep(2)
+        time.sleep(1)
 
-        log_result(f"Theme {theme_number} clicked and Save Changes button clicked.")
+        log_result(f'<strong class="text-success">PASSED::</strong>Theme {theme_number} clicked and Save Changes button clicked.')
     except Exception as e:
-        log_result(f"Failed to change to Theme {theme_number} - Error: {str(e)}")
+        log_result(f'<strong class="text-danger">FAILED::</strong>Failed to change to Theme {theme_number} - Error: {str(e)}')
 
 # Function to logout
 def logout():
@@ -148,9 +148,9 @@ def logout():
         logout_option.click()
         time.sleep(2)
 
-        log_result("Logout successful.")
+        log_result('<strong class="text-success">PASSED::</strong>Logout successful.')
     except Exception as e:
-        log_result(f"Logout failed - Error: {str(e)}")
+        log_result(f'<strong class="text-danger">FAILED::</strong>Logout failed - Error: {str(e)}')
 
 # Perform the actions in sequence
 login()
@@ -158,14 +158,14 @@ login()
 # Click on Company Settings and Brand Settings
 perform_action(
     lambda: driver.find_element(By.XPATH, '/html/body/nav/div[1]/div/div[1]/div[2]/div/div/div/ul/li[11]/a/span[2]').click(),
-    "Navigated to Company Settings.",
-    "Failed to navigate to Company Settings."
+    "<strong>Navigated to Company Settings.</strong>",
+    "<strong>Failed to navigate to Company Settings.</strong>"
 )
 
 perform_action(
     lambda: driver.find_element(By.XPATH, '//*[@id="useradd-sidenav"]/a[1]').click(),
-    "Navigated to Brand Settings.",
-    "Failed to navigate to Brand Settings."
+    "<strong>Navigated to Brand Settings.</strong>",
+    "<strong>Failed to navigate to Brand Settings.</strong>"
 )
 
 # Update title text and click Save Changes after each input
